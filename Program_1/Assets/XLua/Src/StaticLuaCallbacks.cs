@@ -21,7 +21,6 @@ namespace XLua
     using System;
     using System.IO;
     using System.Reflection;
-    using System.IO;
 
     public partial class StaticLuaCallbacks
     {
@@ -688,20 +687,23 @@ namespace XLua
             try
             {
                 string filename = LuaAPI.lua_tostring(L, 1).Replace('.', '/') + ".lua";
-
+                UnityEngine.TextAsset file;
                 // Load with Unity3D resources
-                
                 if (File.Exists(filename))
+                {
+                    Byte[] fileByte = File.ReadAllBytes(filename);
+                    String fileText = System.Text.Encoding.Default.GetString(fileByte);
+                    file = new UnityEngine.TextAsset(fileText);
+                }
+                else
+                    file = (UnityEngine.TextAsset)UnityEngine.Resources.Load(filename);
+                if (file == null)
                 {
                     LuaAPI.lua_pushstring(L, string.Format(
                         "\n\tno such resource '{0}'", filename));
                 }
                 else
                 {
-                    Byte[] fileByte = File.ReadAllBytes(filename);
-                    String fileText = System.Text.Encoding.Default.GetString(fileByte);
-                    UnityEngine.TextAsset file = new UnityEngine.TextAsset(fileText);
-                        //(UnityEngine.TextAsset)UnityEngine.Resources.Load(filename);
                     if (LuaAPI.xluaL_loadbuffer(L, file.bytes, file.bytes.Length, "@" + filename) != 0)
                     {
                         return LuaAPI.luaL_error(L, String.Format("error loading module {0} from resource, {1}",
