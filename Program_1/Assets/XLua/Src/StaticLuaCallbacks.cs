@@ -691,7 +691,8 @@ namespace XLua
                 // Load with Unity3D resources
                 if (File.Exists(filename))
                 {
-                    Byte[] fileByte = File.ReadAllBytes(filename);
+                    
+                      Byte[] fileByte = File.ReadAllBytes(filename);
                     String fileText = System.Text.Encoding.Default.GetString(fileByte);
                     file = new UnityEngine.TextAsset(fileText);
                 }
