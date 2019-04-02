@@ -562,3 +562,4 @@ D:\Git\MiniGameProject\Program_1\obj\Debug\Assembly-CSharp.csproj.CoreCompileInp
 D:\Git\MiniGameProject\Program_1\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Git\MiniGameProject\Program_1\obj\Debug\Assembly-CSharp.dll
 D:\Git\MiniGameProject\Program_1\obj\Debug\Assembly-CSharp.pdb
+E:\GitHub\MiniGameProject\Program_1\Temp\bin\Debug\LitJson.dll

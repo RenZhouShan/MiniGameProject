@@ -692,7 +692,7 @@ namespace XLua
                 if (File.Exists(filename))
                 {
                     
-                      Byte[] fileByte = File.ReadAllBytes(filename);
+                    Byte[] fileByte = File.ReadAllBytes(filename);
                     String fileText = System.Text.Encoding.Default.GetString(fileByte);
                     file = new UnityEngine.TextAsset(fileText);
                 }
@@ -704,7 +704,7 @@ namespace XLua
                         "\n\tno such resource '{0}'", filename));
                 }
                 else
-                {
+                {   
                     if (LuaAPI.xluaL_loadbuffer(L, file.bytes, file.bytes.Length, "@" + filename) != 0)
                     {
                         return LuaAPI.luaL_error(L, String.Format("error loading module {0} from resource, {1}",
