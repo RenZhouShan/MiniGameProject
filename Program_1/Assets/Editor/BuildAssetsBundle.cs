@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -46,18 +45,27 @@ public class BuildAssetsBundle : Editor
     [MenuItem(BuildAssetsBundleMenu, false, 1)]
     public static void BuildAssetsB()
     {
+        //
+        //System.Console.WriteLine("haha");
+        //
         var paths = Selection.assetGUIDs.Select(AssetDatabase.GUIDToAssetPath).Where(AssetDatabase.IsValidFolder).ToList();
-        System.Console.WriteLine("haha");
-        //System.Console.WriteLine(AssetDatabase.GUIDToAssetPath);
-        if (paths.Count > 1)
+        string[] strs = Selection.assetGUIDs;
+        string path = EditorUtility.SaveFolderPanel("Save Resourse", "", "");
+        Debug.Log(path);
+        if (path.Length != 0)
         {
-            EditorUtility.DisplayDialog("", "不能同时选择多个目录进行该操作！", "确定");
-            return;
+            Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
+            foreach (Object sel in selection)
+            {
+                var strName = path.Split('/');
+                GetConfig();
+                Debug.Log(path);
+                Debug.Log(strName[strName.Length - 1]);
+                FindAllFile("Assets/BuildAssetsBundle", strName[strName.Length - 1]);
+                OutPutConfig();
+            }
+            Selection.objects = selection;
         }
-        var strName = paths[0].Split('/');
-        GetConfig();
-        FindAllFile(paths[0], strName[strName.Length - 1]);
-        OutPutConfig();
     }
     static void FindAllFile(string path, string assetsBundlename)
     {
